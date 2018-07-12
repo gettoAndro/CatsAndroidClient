@@ -6,11 +6,13 @@ import android.view.View
 import android.view.ViewGroup
 import com.getto.cats.R
 import com.getto.cats.data.entity.Cat
+import com.getto.cats.presentation.main.view.MainView
 import kotlinx.android.synthetic.main.cats_item.view.*
 
-class CatsAdapter(private val cats: ArrayList<Cat>) : RecyclerView.Adapter<CatsAdapter.ItemViewHolder>() {
+class CatsAdapter(private val cats: ArrayList<Cat>, private val view : MainView) : RecyclerView.Adapter<CatsAdapter.ItemViewHolder>() {
 
-    class ItemViewHolder(itemView: View?) : RecyclerView.ViewHolder(itemView) {
+    class ItemViewHolder(itemView: View?) : RecyclerView.ViewHolder(itemView){
+
         fun bindCats(cat : Cat){
             itemView.cat_name.text = cat.name
         }
@@ -21,12 +23,14 @@ class CatsAdapter(private val cats: ArrayList<Cat>) : RecyclerView.Adapter<CatsA
     }
 
     override fun getItemCount(): Int {
-        TODO("not implemented") //To change body of created functions use File | Settings | File Templates.
-        return cats.size
+        return cats.count()
     }
 
     override fun onBindViewHolder(holder: ItemViewHolder, position: Int) {
         holder.bindCats(cats[position])
+        holder.itemView.setOnClickListener(View.OnClickListener {
+            view.showDetails(cats[position])
+        })
 
     }
 
