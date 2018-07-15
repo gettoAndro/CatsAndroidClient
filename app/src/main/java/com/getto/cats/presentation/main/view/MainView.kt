@@ -6,5 +6,7 @@ interface MainView {
 
     fun showCat(cats : ArrayList<Cat>)
     fun showDetails(cat : Cat)
+    fun showAddDialog()
+    fun onAddAvatar()
 
 }
