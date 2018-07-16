@@ -1,9 +1,7 @@
 package com.getto.cats.presentation.adapter
 
 import android.support.v7.widget.RecyclerView
-import android.view.LayoutInflater
-import android.view.View
-import android.view.ViewGroup
+import android.view.*
 import com.getto.cats.R
 import com.getto.cats.data.entity.Cat
 import com.getto.cats.presentation.main.view.MainView
@@ -11,7 +9,7 @@ import kotlinx.android.synthetic.main.cats_item.view.*
 
 class CatsAdapter(private val cats: ArrayList<Cat>, private val view : MainView) : RecyclerView.Adapter<CatsAdapter.ItemViewHolder>() {
 
-    class ItemViewHolder(itemView: View?) : RecyclerView.ViewHolder(itemView){
+    class ItemViewHolder(itemView: View?) : RecyclerView.ViewHolder(itemView) {
 
         fun bindCats(cat : Cat){
             itemView.cat_name.text = cat.name
@@ -29,9 +27,11 @@ class CatsAdapter(private val cats: ArrayList<Cat>, private val view : MainView)
     override fun onBindViewHolder(holder: ItemViewHolder, position: Int) {
         holder.bindCats(cats[position])
         holder.itemView.setOnClickListener(View.OnClickListener {
-            view.showDetails(cats[position])
+            view.showEditDialog(cats[position])
         })
-
+        holder.itemView.icon_delete.setOnClickListener(View.OnClickListener {
+            view.onDeleteCat(cats[position].id)
+        })
     }
 
 }

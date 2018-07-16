@@ -15,10 +15,18 @@ interface CatsApi {
     @GET(Endpoints.GET_CATS)
     fun getCats() : Single<ArrayList<Cat>>
 
-    @Multipart
-    @POST(Endpoints.ADD_CAT)
-    fun addCat(@Field("name") name: String, @Part file: MultipartBody.Part) : Single<String>
+//    @Multipart
+//    @POST(Endpoints.ADD_CAT)
+//    fun addCat(@Query("name") name: String, @Part file: MultipartBody.Part?) : Single<String>
+//
+    @GET(Endpoints.ADD_CAT)
+    fun addCat(@Query("name") name: String) : Completable
 
+    @GET(Endpoints.UPDATE_CAT)
+    fun updateCat(@Header("id") id : Long, @Query("name") name: String) : Completable
+
+    @GET(Endpoints.DELETE_CAT)
+    fun deleteCat(@Query("id") id : Long) : Completable
 
     companion object {
         fun create() : CatsApi{
